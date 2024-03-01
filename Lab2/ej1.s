@@ -1,3 +1,14 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    2.  Escriba un programa que lea una cadena desde el teclado de un m´aximo de 20 caracteres y
+        luego la copie en el monitor.
+
+*/
+
+
 .data
     len = 20
     buf: .zero len

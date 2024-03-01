@@ -1,3 +1,18 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    2.  Repita el programa anterior capturando la cadena, pero ahora escribirá 3 versiones diferentes
+    de la misma: la primera contendrá todos los caracteres en minúsculas, la segunda todos en
+    mayúsculas y la tercera conmutará las mayúsculas por minúsculas y viceversa.
+    Se recomienda que la cadena de entrada no contenga ni caracteres numéricos ni espacios.
+    También es conveniente añadir el carácter line feed (LF = 10 = 0xA) al final de cada nueva
+    cadena.
+
+*/
+
+
 .data
     len =  20
     buf:  .zero len

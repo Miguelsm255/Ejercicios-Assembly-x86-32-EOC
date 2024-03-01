@@ -1,3 +1,16 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    1.  Escriba un programa con un bucle en el que se le pida, en cada iteración, que introduzca
+        una carácter desde el teclado. Si el carácter leído es ’S’, entonces el programa finaliza, pero
+        para cualquier otro caso, escribe el caracter en la pantalla, avanza línea y vuelve a pedir
+        otro carácter.
+
+*/
+
+
 .data
     len = 2
     buf: .zero len

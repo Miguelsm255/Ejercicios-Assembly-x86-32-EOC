@@ -1,3 +1,17 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    2.  Escriba un programa con un bucle que solicite una cadena de caracteres de longitud máxima
+        20 bytes, conteniendo espacios en blanco, números, etc. Si la cadena es la letra ’S’, entonces
+        el programa finaliza, pero en caso contrario cambia la caja de los caracteres alfabéticos a
+        minúsculas, escribe la nueva cadena en pantalla y vuelve a empezar.
+
+*/
+
+
+
 .data
     len = 21
     buf: .zero len

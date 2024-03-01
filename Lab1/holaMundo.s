@@ -1,3 +1,14 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    1.  Modifique el programa “Hola mundo” en ensamblador x86-32 añadiendo código y datos para
+        que presente en pantalla una segunda cadena de caracteres con su nombre.
+
+*/
+
+
 .data
     msg1:
     .ascii  "\n¡Hola, mundo!\n"

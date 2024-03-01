@@ -1,3 +1,20 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    1.  Escriba un programa que cree un fichero de nombre personal.txt de sólo escritura y modo
+        adjuntar (append). En ese fichero se irán escribiendo sucesivos registros que contendrán un
+        nombre y una edad. Cada campo del registro estará separado del siguiente mediante un
+        tabulador (carácter ’\t’) y cada registro se separa del siguiente con un line feed (carácter
+        ’\n’). Todos los campos serán cadenas de un máximo de 10 caracteres. Indique al usuario
+        lo que se le solicita mediante el correspondiente mensaje. Pregunte si se desea escribir un
+        nuevo registro o salir pulsando la letra ’s’. Compruebe cámo queda el fichero desde un editor
+        de texto.
+
+*/
+
+
 .data
     lenBuf = 11
 
