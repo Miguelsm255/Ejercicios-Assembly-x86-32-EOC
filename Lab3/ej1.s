@@ -18,36 +18,36 @@
 .text
     .global _start
     _start:
-        movl $3,   %eax
-        movl $0,   %ebx
-        movl $buf, %ecx
-        movl $len, %edx
+        movl $3,   %eax                 # LEER
+        movl $0,   %ebx                 # DEL TECLADO
+        movl $buf, %ecx                 # GUARDÁNDOLO EN BUF
+        movl $len, %edx                 # CON MÁXIMO ESTE TAMAÑO
         int  $0x80
 
-        cmpb $'\n', buf + len-1
-        je seguir
+    comprobar:
+        cmpb $'\n', buf + len-1         # SI EL SEGUNDO CARACTER ES UN SALTO DE LÍNEA
+        je seguir                       # SALTAR PURGA. SI NO, PURGAR
 
     purgar:
-        movl $3,            %eax
-        movl $0,            %ebx
-        movl $buf+ len-1,   %ecx
-        movl $1,            %edx
+        movl $3,            %eax        # LEER
+        movl $0,            %ebx        # DEL TECLADO
+        movl $buf+ len-1,   %ecx        # GUARDÁNDOLO EN LA ÚLTIMA POSICIÓN DE BUF
+        movl $1,            %edx        # CON TAMAÑO 1
         int  $0x80
 
-        cmpb $'\n', buf+1
-        jne purgar
+        jmp comprobar                   # VOLVER A COMPROBAR
 
     seguir:
-        movl $4,   %eax
-        movl $1,   %ebx
-        movl $buf, %ecx
-        movl $len, %edx
+        movl $4,   %eax                 # ESCRIBIR 
+        movl $1,   %ebx                 # EN LA PANTALLA
+        movl $buf, %ecx                 # EL CONTENIDO DE BUF
+        movl $len, %edx                 # CON MÁXIMO ESTE TAMAÑO
         int  $0x80
 
-        cmpb $'S', buf
-        jne _start
+        cmpb $'S', buf                  # COMPROBAR SI EL PRIMER CARACTER ES UNA S
+        jne _start                      # SI NO, VOLVER A PEDIR UN CARACTER
 
 
-        movl $1,   %eax
-        movl $0,   %ebx
+        movl $1,   %eax                 # DEVOLUCIÓN DEL 
+        movl $0,   %ebx                 # CONTROL AL SISTEMA
         int  $0x80

@@ -49,7 +49,7 @@
 
         movl $4,        %eax                # ESCRIBIR
         movl $1,        %ebx                # EN PANTALLA
-        movl $LF,     %ecx                  # EL SALTO DE LINEA
+        movl $LF,       %ecx                # EL SALTO DE LINEA
         movl $1,        %edx                # CANTIDAD DE BYTES A ESCRIBIR
         int  $0x80
 

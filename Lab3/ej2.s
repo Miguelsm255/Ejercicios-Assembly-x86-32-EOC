@@ -13,56 +13,65 @@
 
 
 .data
-    len = 21
+    len = 21                                # 20 CARACTERES + 1 PARA EL SALTO DE LÍNEA
     buf: .zero len
-    maskMin = 00100000
+    maskMin = 0x20
 
 .text
     .global _start
     _start:
-        movl $3,     %eax
-        movl $0,     %ebx
-        movl $buf,   %ecx
-        movl $len,   %edx
+        movl $3,            %eax            # LEER
+        movl $0,            %ebx            # DEL TECLADO
+        movl $buf,          %ecx            # ESCRIBIENDOLO EN BUF
+        movl $len,          %edx            # CON MÁXIMO ESTA LONGITUD
         int  $0x80
 
-        movl %eax, %esi
+        movl %eax, %esi                     # GUARDAR NUMERO DE CARACTERES INTRODUCIDOS EN ESI
 
-        cmpb $'\n', buf-1(%esi)
-        je fixed
+        cmpl $1, %esi                       # COMPROBAR SI NO SE HA INTRODUCIDO NINGÚN CARACTER
+        je _start                           # SI NO SE HA INTRODUCIDO NINGÚN CARACTER, VOLVER A EMPEZAR
+        
+    comprobar:
+
+        cmpb $'\n', buf-1(%esi)             # SI EL ÚLTIMO CARACTER ES UN SALTO DE LÍNEA
+        je fixed                            # SALTAR PURGA. SI NO, PURGAR
 
     purgue:
-        movl $3,     %eax
-        movl $0,     %ebx
-        movl $buf+len-1, %ecx
-        movl $1,     %edx
+        movl $3,            %eax            # LEER
+        movl $0,            %ebx            # DEL TECLADO
+        movl $buf+len-1,    %ecx            # ESCRIBIENDOLO EN LA ÚLTIMA POSICIÓN DE BUF
+        movl $1,            %edx            # SOLO UN CARACTER
         int  $0x80
 
-        cmpb $'\n', buf+len-1
-        jne purgue
+        jmp comprobar                       # SI NO LO ES, SEGUIR PURGANDO
 
     fixed:
 
-        movl %esi, %ecx
-        decl %ecx
-        movl $0, %esi
+        cmpb $'S', buf                      # COMPROBAR SI LA CADENA INTRODUCIDA ES "S"
+        je fin                              # SI ES, TERMINAR EL PROGRAMA
 
-        bucleMin:
-            movb buf(%esi), %al
-            orb maskMin, %al
-            movb %al, buf(%esi)
-            incl %esi
-            loop bucleMin
+        movl %esi,   %ecx                   # GUARDAR NUMERO DE CARACTERES INTRODUCIDOS EN ECX
+        movl %esi,   %edi
+        decl %ecx                           # DECREMENTARLO EN 1
+        movl $0,     %esi                   # INICIALIZAR ESI A 0
 
-        movl $4,     %eax
-        movl $1,     %ebx
-        movl $buf,   %ecx
-        movl $len,   %edx
+        bucleMin:                           # BUCLE PARA CAMBIAR A MINÚSCULAS, RECORRIENDO CADA CARACTER
+
+            movb buf(%esi),    %al          # GUARDAR EL CARACTER EN AL
+            orb  $maskMin,     %al          # HACER OR CON LA MÁSCARA PARA CAMBIAR A MINÚSCULAS
+            movb %al,          buf(%esi)    # GUARDAR EL CARACTER MODIFICADO EN SU POSICIÓN EN BUF
+            incl %esi                       # INCREMENTAR ESI
+            loop bucleMin                   # REPETIR EL BUCLE HASTA QUE ECX SEA 0
+
+        movl $4,     %eax                   # ESCRIBIR
+        movl $1,     %ebx                   # EN PANTALLA
+        movl $buf,   %ecx                   # LA CADENA MODIFICADA
+        movl %edi,   %edx                   # CON MÁXIMO ESTA LONGITUD
         int  $0x80
 
-        cmpb $'S', buf
-        jne _start
+        jmp _start                          # VOLVER A EMPEZAR
 
-        movl $1,     %eax
-        movl $0,     %ebx
+    fin:
+        movl $1,     %eax                   # DEVOLUCIÓN DEL CONTROL
+        movl $0,     %ebx                   # AL SISTEMA OPERATIVO
         int  $0x80
