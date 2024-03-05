@@ -10,24 +10,24 @@
 
 
 .data
-    len = 20
-    buf: .zero len
+    len = 20                    # LONGITUD MÁXIMA DE LA CADENA
+    buf: .zero len              # BUFFER PARA ALMACENAR LA CADENA CON LONGITUD LEN
 
 .text
     .global _start
     _start:
-        movl $len, %edx
-        movl $buf, %ecx
-        movl $0,   %ebx
-        movl $3,   %eax
+        movl $3,    %eax        # LEER
+        movl $0,    %ebx        # DEL TECLADO
+        movl $buf,  %ecx        # COPIANDOLO EN BUF
+        movl $len,  %edx        # CON MÁXIMO LONGITUD LEN
         int  $0x80
 
-        movl $len, %edx
-        movl $buf, %ecx
-        movl $1,   %ebx
-        movl $4,   %eax
+        movl $4,    %eax        # ESCRIBIR
+        movl $1,    %ebx        # EN PANTALLA
+        movl $buf,  %ecx        # LO QUE HAY EN BUF
+        movl $len,  %edx        # CON MÁXIMO LONGITUD LEN
         int  $0x80
 
-        movl $0,   %ebx
-        movl $1,   %eax
+        movl $1,   %eax         # DEVOLUCIÓN DEL CONTROL
+        movl $0,   %ebx         # AL SISTEMA OPERATIVO
         int  $0x80
