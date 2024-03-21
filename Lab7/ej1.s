@@ -1,3 +1,18 @@
+/*
+
+                                --------------ENUNCIADO-------------------
+
+
+    1.  Escriba la subrutina unsigned long int strtoul(char *) que devuelve el valor binario
+        puro de una cadena de caracteres compuesta de cifras decimales, es decir, los caracteres ascii
+        del ’0’ al ’9’; la cadena no puede contener espacios en blanco ni separadores, como carácter
+        terminador tiene un NULL y se pasa por referencia; el valor devuelto es un tipo unsigned
+        long int con el resultado de la codificación o 0xFFFFFFFF en caso de desbordamiento o de
+        error causado por el uso de un carácter no numérico
+
+*/
+
+
 .data
     varerror: .long 0xFFFFFFFF
     len = 20
